@@ -97,10 +97,10 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
 
     $scope.categories = [
         'MongoDB',
-        null,
         'Express',
         'Angular',
-        'Node'
+        'Node',
+        null
     ];
 
 });
