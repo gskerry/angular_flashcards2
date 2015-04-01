@@ -93,6 +93,9 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
             $scope.flashCards = arg
             console.log($scope.flashCards);
         })
+
+        $scope.status = category;
+        // gets picked up by digest re-run...
     }
 
     $scope.categories = [

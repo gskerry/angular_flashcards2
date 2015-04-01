@@ -11,6 +11,7 @@
         <button 
             ng-repeat="category in categories"
             class="category-button"
+            ng-class="{active : category == status}"
             ng-click="getCategoryCards(category)"
         >
             {{category}}
