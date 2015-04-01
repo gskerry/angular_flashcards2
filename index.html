@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body ng-app="flashCards" ng-controller="MainController">
-    	<div
+        <div
     		ng-repeat="flashCard in flashCards | orderBy : 'question'"
     		class="flash-card">
     	    <h1>{{ flashCard.question | uppercase }}</h1>
@@ -27,6 +27,6 @@
     	</div>
     	<script src="angular.js"></script>
     	<script src="app.js"></script>
-    	<script src="main.controller.js"></script>
+    	<!-- /*<script src="main.controller.js"></script>*/ -->
     </body>
 </html>

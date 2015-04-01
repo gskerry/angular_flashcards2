@@ -1,28 +1,69 @@
 var app = angular.module('flashCards', []);
 
-app.value('whateverName', [
-    {
-        question: 'C. What is Angular?',
-        answers: [
-            { text: 'A front-end framework for great power!', correct: true },
-            { text: 'Something lame, who cares, whatever.', correct: false },
-            { text: 'Some kind of fish, right?', correct: false }
-        ]
-    },
-    {
-        question: 'A. What is a controller?',
-        answers: [
-            { text: 'Something that manages my front-end routes', correct: false },
-            { text: 'A function that allows me to manage a scope', correct: true },
-            { text: 'An Angular template', correct: false }
-        ]
-    },
-    {
-        question: 'B. What does {{ }} do?',
-        answers: [
-            { text: 'It runs some Javascript', correct: false },
-            { text: 'It looks for variables in HTML', correct: false },
-            { text: 'It runs an Angular expression that accesses my $scope', correct: true }
-        ]
-    }
-]);
+// ****************
+// (Sort of) Callback Approach
+// ****************
+
+/*
+app.factory('FlashCardsFactory', function ($http) {
+    return {
+        getFlashCards: function (cb) {
+            // JSON (http://localhost:4567/cards)
+            return $http.get('/cards')
+                .then(function(response){
+                    // console.log(response.data);
+                    cb(response.data);
+                });
+        }
+    };
+});
+
+app.controller('MainController', function ($scope, FlashCardsFactory) { 
+
+    // What Factory is sending...
+    // console.log(FlashCardsFactory.getFlashCards);
+    // console.log(FlashCardsFactory.getFlashCards());
+
+    var something = function(arg){
+        // console.log("I'm LOGGED",arg);
+        $scope.flashCards = arg        
+        console.log("LOOK OVER HERE!!!!",$scope.flashCards);
+    };
+
+    FlashCardsFactory.getFlashCards(something)    
+
+});
+*/
+
+
+// ******************
+// Promises Approach
+// ******************
+
+app.factory('FlashCardsFactory', function ($http) {
+    return {
+        getFlashCards: function () {
+            // JSON (http://localhost:4567/cards)
+            return $http.get('/cards')
+                .then(function(response){
+                    // console.log(response.data);
+                    return response.data;
+                });
+        }
+    };
+});
+
+app.controller('MainController', function ($scope, FlashCardsFactory) { 
+
+    // What Factory is sending...
+    // console.log(FlashCardsFactory.getFlashCards);
+    // console.log(FlashCardsFactory.getFlashCards());
+
+    FlashCardsFactory.getFlashCards().then(
+        function(arg){
+            $scope.flashCards = arg
+            console.log($scope.flashCards);
+        }
+    )
+
+});

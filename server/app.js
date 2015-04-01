@@ -25,6 +25,7 @@ app.use(express.static(publicPath));
 // If we're hitting our home page, serve up our index.html file!
 app.get('/', function (req, res) {
     res.sendFile(indexHtmlPath);
+    // console.log("NEW THING")
 });
 
 app.use(function (req, res, next) {
