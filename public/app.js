@@ -40,7 +40,7 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
 // Promises Approach
 // ******************
 
-app.factory('FlashCardsFactory', function ($http) {
+/*app.factory('FlashCardsFactory', function ($http) {
     return {
         getFlashCards: function () {
             // JSON (http://localhost:4567/cards)
@@ -51,10 +51,31 @@ app.factory('FlashCardsFactory', function ($http) {
                 });
         }
     };
+});*/
+
+app.factory('FlashCardsFactory', function ($http) {
+    return {
+        getFlashCards: function (category) {
+            
+            var queryParams = {};
+
+            if(category){
+                queryParams.category = category
+            } 
+            return $http.get('/cards', {
+                params : queryParams
+            })
+            .then(function(response){
+                // console.log(response.data);
+                return response.data;
+            });
+            
+        }
+    };
 });
 
-app.controller('MainController', function ($scope, FlashCardsFactory) { 
 
+app.controller('MainController', function ($scope, FlashCardsFactory) { 
     // What Factory is sending...
     // console.log(FlashCardsFactory.getFlashCards);
     // console.log(FlashCardsFactory.getFlashCards());
@@ -66,4 +87,29 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
         }
     )
 
+    $scope.getCategoryCards = function(category){
+        FlashCardsFactory.getFlashCards(category).then(
+        function(arg){
+            $scope.flashCards = arg
+            console.log($scope.flashCards);
+        })
+    }
+
+    $scope.categories = [
+        'MongoDB',
+        null,
+        'Express',
+        'Angular',
+        'Node'
+    ];
+
 });
+
+
+
+
+
+
+
+
+

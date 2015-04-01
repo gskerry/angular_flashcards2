@@ -37,6 +37,9 @@ app.get('/cards', function (req, res) {
 
     var modelParams = {};
 
+    console.log(req.query);
+    // { BOB: 'person' }
+
     if (req.query.category) {
     	modelParams.category = req.query.category;
     }
