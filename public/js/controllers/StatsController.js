@@ -1,0 +1,9 @@
+app.controller('StatsController', function ($scope, ScoreFactory) {
+    // Injection... e.g. ScoreFactory... 
+    // Not the function, but what the function returns...
+    // Here, a scores object... 
+
+    
+    $scope.scores = ScoreFactory;
+
+}); 
