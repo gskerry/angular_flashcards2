@@ -74,29 +74,28 @@ app.factory('FlashCardsFactory', function ($http) {
     };
 });
 
+app.factory('ScoreFactory', function () {
 
-app.controller('MainController', function ($scope, FlashCardsFactory) { 
+        return {
+            correct: 0,
+            incorrect: 0
+        };
+
+});
+
+
+app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFactory) { 
     // What Factory is sending...
     // console.log(FlashCardsFactory.getFlashCards);
     // console.log(FlashCardsFactory.getFlashCards());
 
+    // !! Seems redundant... defined in getCategory
     FlashCardsFactory.getFlashCards().then(
         function(arg){
             $scope.flashCards = arg
             console.log($scope.flashCards);
         }
     )
-
-    $scope.getCategoryCards = function(category){
-        FlashCardsFactory.getFlashCards(category).then(
-        function(arg){
-            $scope.flashCards = arg
-            console.log($scope.flashCards);
-        })
-
-        $scope.status = category;
-        // gets picked up by digest re-run...
-    }
 
     $scope.categories = [
         'MongoDB',
@@ -106,9 +105,38 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
         null
     ];
 
-});
+    $scope.getCategoryCards = function(category){
+        FlashCardsFactory.getFlashCards(category).then(
+        function(arg){
+            $scope.flashCards = arg
+            console.log($scope.flashCards);
+        })
+
+        $scope.status = category;
+        // pulls from the angular object? 
+        // does read from the button pushed (on some level)
+        // gets picked up by digest re-run...
+    }
+
+    $scope.answerQuestion = function (answer, flashCard) {
+        if (!flashCard.answered) {
+            flashCard.answered = true;
+            flashCard.answeredCorrectly = answer.correct;
+            if(flashCard.answeredCorrectly === true){
+                ScoreFactory.correct += 1;
+            } else {
+                ScoreFactory.incorrect += 1;
+            }
+        }
+    }
+
+}); // End MainController
 
 
+app.controller('StatsController', function ($scope, ScoreFactory) {
+    $scope.scores = ScoreFactory;
+
+}); 
 
 
 

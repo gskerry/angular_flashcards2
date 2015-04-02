@@ -1,3 +1,8 @@
+// ************
+// !!! This has been commented out of index
+// ************
+
+
 app.controller('MainController', function ($scope, whateverName) {
 	$scope.flashCards = whateverName;
 
