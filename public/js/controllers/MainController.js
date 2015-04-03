@@ -7,7 +7,7 @@ app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFacto
     FlashCardsFactory.getFlashCards().then(
         function(arg){
             $scope.flashCards = arg
-            console.log($scope.flashCards);
+            console.log("FLASHCARDS: ",$scope.flashCards);
         }
     )
 
@@ -26,7 +26,7 @@ app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFacto
             console.log($scope.flashCards);
         })
 
-        $scope.status = category;
+        $scope.currentCategory = category;
         // pulls from the angular object? 
         // does read from the button pushed (on some level)
         // gets picked up by digest re-run...

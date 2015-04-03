@@ -3,7 +3,10 @@ app.controller('StatsController', function ($scope, ScoreFactory) {
     // Not the function, but what the function returns...
     // Here, a scores object... 
 
-    
+    // linking... "reference"
+    // x = {}; x = y x === y >> true
+    // x = {}; y = {}; x === y >> false
+
     $scope.scores = ScoreFactory;
 
 }); 

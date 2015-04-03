@@ -21,12 +21,13 @@
         <button 
             ng-repeat="category in categories"
             class="category-button"
-            ng-class="{active : category == status}"
+            ng-class="{active : currentCategory == category}"
             ng-click="getCategoryCards(category)"
         >
             {{category || "Reset"}}
         </button>
         <!-- $digest 'refreshes' and button gets rendered as 'active' -->
+        <!-- ng-repeat... creates a new $scope object for  -->
 
         <div
             ng-repeat="flashCard in flashCards | orderBy : 'question'"
